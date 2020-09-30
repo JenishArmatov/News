@@ -35,6 +35,7 @@ import retrofit2.Response;
 public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     public static List<Article> articles = new ArrayList<>();
     public SwipeRefreshLayout swipeRefreshLayout;
+    public  static String API_KEY = "7d539e325d584a4d86c25a354ef7eaf9";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,6 @@ public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayou
         newsRV.setLayoutManager(llmr);
         adapterNewsRV.notifyDataSetChanged();
         CustomScrollView scrollView = (CustomScrollView) findViewById(R.id.customScrollView);
-
         scrollView.setOnBottomReachedListener(new CustomScrollView.OnBottomReachedListener() {
 
             @Override
@@ -79,9 +79,9 @@ public class NewsActivity extends AppCompatActivity implements SwipeRefreshLayou
         String country = NewsPageAdapter.countryID;
         Call<News> call;
         if (keyword.length() > 0 ){
-            call = apiInterface.getNewsSearch(keyword, "publishedAt", "7d539e325d584a4d86c25a354ef7eaf9");
+            call = apiInterface.getNewsSearch(keyword, "publishedAt", API_KEY);
         } else {
-            call = apiInterface.getNews(country, "7d539e325d584a4d86c25a354ef7eaf9");
+            call = apiInterface.getNews(country, API_KEY);
         }
         call.enqueue(new Callback<News>() {
             @Override
